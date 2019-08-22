@@ -1,4 +1,4 @@
-package com.aszoke.assignment.issuesubmitter;
+package com.aszoke.assignment.issuesubmitter.util;
 
 import java.time.LocalDateTime;
 

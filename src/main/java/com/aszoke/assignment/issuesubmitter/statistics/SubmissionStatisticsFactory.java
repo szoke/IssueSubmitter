@@ -1,4 +1,6 @@
-package com.aszoke.assignment.issuesubmitter;
+package com.aszoke.assignment.issuesubmitter.statistics;
+
+import com.aszoke.assignment.issuesubmitter.domain.SubmissionResult;
 
 import java.util.Collection;
 

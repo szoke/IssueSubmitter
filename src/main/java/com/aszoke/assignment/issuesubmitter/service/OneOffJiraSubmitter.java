@@ -1,12 +1,15 @@
-package com.aszoke.assignment.issuesubmitter;
+package com.aszoke.assignment.issuesubmitter.service;
 
+import com.aszoke.assignment.issuesubmitter.domain.Issue;
+import com.aszoke.assignment.issuesubmitter.domain.SubmissionResult;
+import com.aszoke.assignment.issuesubmitter.server.Jira;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.concurrent.Callable;
 
-import static com.aszoke.assignment.issuesubmitter.Logger.logError;
-import static com.aszoke.assignment.issuesubmitter.Logger.logInfo;
+import static com.aszoke.assignment.issuesubmitter.util.Logger.logError;
+import static com.aszoke.assignment.issuesubmitter.util.Logger.logInfo;
 
 public class OneOffJiraSubmitter implements Callable<SubmissionResult> {
 
@@ -30,6 +33,7 @@ public class OneOffJiraSubmitter implements Callable<SubmissionResult> {
 
         long finishedAt = System.currentTimeMillis();
 
+        // TODO aszoke Extract into factory?
         SubmissionResult result = new SubmissionResult();
         result.setIssueKey(issue.getKey());
         result.setStatusCode(statusCode);

@@ -1,4 +1,4 @@
-package com.aszoke.assignment.issuesubmitter;
+package com.aszoke.assignment.issuesubmitter.csv;
 
 import java.util.List;
 

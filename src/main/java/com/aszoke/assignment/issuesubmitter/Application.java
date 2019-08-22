@@ -1,8 +1,21 @@
 package com.aszoke.assignment.issuesubmitter;
 
+import com.aszoke.assignment.issuesubmitter.csv.CsvReader;
+import com.aszoke.assignment.issuesubmitter.csv.DefaultCsvReader;
+import com.aszoke.assignment.issuesubmitter.csv.RegexBasedFilteringCsvReaderDecorator;
+import com.aszoke.assignment.issuesubmitter.domain.DefaultIssueFactory;
+import com.aszoke.assignment.issuesubmitter.domain.Issue;
+import com.aszoke.assignment.issuesubmitter.domain.IssueFactory;
+import com.aszoke.assignment.issuesubmitter.domain.SubmissionResult;
+import com.aszoke.assignment.issuesubmitter.server.Jira;
+import com.aszoke.assignment.issuesubmitter.server.MockJira;
+import com.aszoke.assignment.issuesubmitter.service.*;
+import com.aszoke.assignment.issuesubmitter.statistics.SubmissionStatistics;
+import com.aszoke.assignment.issuesubmitter.statistics.SubmissionStatisticsFactory;
+
 import java.util.List;
 
-import static com.aszoke.assignment.issuesubmitter.Logger.logInfo;
+import static com.aszoke.assignment.issuesubmitter.util.Logger.logInfo;
 
 public class Application {
 

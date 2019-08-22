@@ -1,4 +1,4 @@
-package com.aszoke.assignment.issuesubmitter;
+package com.aszoke.assignment.issuesubmitter.domain;
 
 import java.util.List;
 

@@ -1,4 +1,7 @@
-package com.aszoke.assignment.issuesubmitter;
+package com.aszoke.assignment.issuesubmitter.service;
+
+import com.aszoke.assignment.issuesubmitter.domain.Issue;
+import com.aszoke.assignment.issuesubmitter.domain.SubmissionResult;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,7 +10,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
-import static com.aszoke.assignment.issuesubmitter.Logger.logError;
+import static com.aszoke.assignment.issuesubmitter.util.Logger.logError;
 
 public class DefaultJiraService implements JiraService {
 

@@ -1,4 +1,4 @@
-package com.aszoke.assignment.issuesubmitter;
+package com.aszoke.assignment.issuesubmitter.csv;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static com.aszoke.assignment.issuesubmitter.Logger.logError;
+import static com.aszoke.assignment.issuesubmitter.util.Logger.logError;
 
 public class DefaultCsvReader implements CsvReader {
 

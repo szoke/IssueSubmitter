@@ -1,4 +1,4 @@
-package com.aszoke.assignment.issuesubmitter;
+package com.aszoke.assignment.issuesubmitter.statistics;
 
 import lombok.Getter;
 import lombok.Setter;

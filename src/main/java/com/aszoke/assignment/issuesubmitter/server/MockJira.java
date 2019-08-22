@@ -1,8 +1,10 @@
-package com.aszoke.assignment.issuesubmitter;
+package com.aszoke.assignment.issuesubmitter.server;
+
+import com.aszoke.assignment.issuesubmitter.domain.Issue;
 
 import java.util.Random;
 
-import static com.aszoke.assignment.issuesubmitter.Logger.logInfo;
+import static com.aszoke.assignment.issuesubmitter.util.Logger.logInfo;
 
 public class MockJira implements Jira {
 
