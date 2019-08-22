@@ -1,7 +1,5 @@
 package com.aszoke.assignment.issuesubmitter.csv;
 
-import com.aszoke.assignment.issuesubmitter.csv.CsvReader;
-
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;

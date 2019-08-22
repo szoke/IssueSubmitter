@@ -11,6 +11,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
 import static com.aszoke.assignment.issuesubmitter.util.Logger.logError;
+import static java.util.Objects.requireNonNull;
 
 public class DefaultJiraService implements JiraService {
 
@@ -19,12 +20,17 @@ public class DefaultJiraService implements JiraService {
 
     public DefaultJiraService(final ExecutorService executorService,
                               final OneOffJiraSubmitterFactory oneOffJiraSubmitterFactory) {
+        requireNonNull(executorService);
+        requireNonNull(oneOffJiraSubmitterFactory);
+
         this.executorService = executorService;
         this.oneOffJiraSubmitterFactory = oneOffJiraSubmitterFactory;
     }
 
     @Override
     public List<SubmissionResult> submit(final Collection<Issue> issues) {
+        requireNonNull(issues);
+
         List<Future<SubmissionResult>> futures = submitIssues(issues);
         List<SubmissionResult> results = collectResults(futures);
         shutDownExecutorService();
