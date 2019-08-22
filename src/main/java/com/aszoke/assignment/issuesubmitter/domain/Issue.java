@@ -32,6 +32,7 @@ public class Issue {
             return issue;
         }
 
+        // TODO CSV headers are hardcoded and not read from the file at all. Is this OK for demo purposes?
         issue.key = fields[0];
         issue.id = fields[1];
         issue.status = fields[2];

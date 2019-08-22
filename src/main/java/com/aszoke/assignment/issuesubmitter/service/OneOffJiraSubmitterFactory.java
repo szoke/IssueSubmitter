@@ -3,6 +3,7 @@ package com.aszoke.assignment.issuesubmitter.service;
 import com.aszoke.assignment.issuesubmitter.domain.Issue;
 import com.aszoke.assignment.issuesubmitter.server.Jira;
 
+// TODO aszoke Extract interface
 public class OneOffJiraSubmitterFactory {
 
     private final Jira jira;

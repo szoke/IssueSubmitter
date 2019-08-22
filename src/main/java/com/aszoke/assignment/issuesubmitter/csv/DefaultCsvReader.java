@@ -19,6 +19,7 @@ public class DefaultCsvReader implements CsvReader {
     @Override
     public List<String> readLines() {
         List<String> lines = new ArrayList<>();
+        // TODO aszoke File access is test-unfriendly, should probably pass a Reader or Stream
         try (Scanner scanner = new Scanner(new File(filename));) {
             while (scanner.hasNextLine()) {
                 lines.add(scanner.nextLine());
