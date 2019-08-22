@@ -4,6 +4,7 @@ import com.aszoke.assignment.issuesubmitter.domain.Issue;
 
 import java.util.Random;
 
+import static com.aszoke.assignment.issuesubmitter.util.Logger.logError;
 import static com.aszoke.assignment.issuesubmitter.util.Logger.logInfo;
 
 public class MockJira implements Jira {
@@ -15,7 +16,7 @@ public class MockJira implements Jira {
         try {
             Thread.sleep(getRandomLatency());
         } catch (InterruptedException e) {
-            logInfo("MockJira sleep interrupted!");
+            logError("MockJira sleep interrupted!");
         }
         return getRandomHttpStatusCode();
     }
