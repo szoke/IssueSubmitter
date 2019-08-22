@@ -1,0 +1,14 @@
+package com.aszoke.assignment.issuesubmitter;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
+public class ThreadPoolExecutorFactory implements ExecutorServiceFactory {
+
+    @Override
+    public ExecutorService create(int poolSize) {
+        return new ThreadPoolExecutor(poolSize, poolSize, 1L, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
+    }
+}
