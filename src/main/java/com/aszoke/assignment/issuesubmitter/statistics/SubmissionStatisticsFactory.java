@@ -7,6 +7,10 @@ import java.util.Collection;
 public class SubmissionStatisticsFactory {
 
     public SubmissionStatistics create(final Collection<SubmissionResult> results) {
+
+        // TODO aszoke Split up calculations eventually into separate classes
+        //  if testing becomes tedious or more flexibility is needed
+
         int http200Count = 0;
         int http403Count = 0;
 
