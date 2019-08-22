@@ -31,7 +31,7 @@ public class DefaultJiraService implements JiraService {
         return results;
     }
 
-    private List<Future<SubmissionResult>> submitIssues(Collection<Issue> issues) {
+    private List<Future<SubmissionResult>> submitIssues(final Collection<Issue> issues) {
         List<Future<SubmissionResult>> futures = new ArrayList<>(issues.size());
         for (Issue issue : issues) {
             OneOffJiraSubmitter oneOffJiraSubmitter = oneOffJiraSubmitterFactory.create(issue);
@@ -41,7 +41,7 @@ public class DefaultJiraService implements JiraService {
         return futures;
     }
 
-    private List<SubmissionResult> collectResults(Collection<Future<SubmissionResult>> futures) {
+    private List<SubmissionResult> collectResults(final Collection<Future<SubmissionResult>> futures) {
         List<SubmissionResult> results = new ArrayList<>(futures.size());
         for (Future<SubmissionResult> future : futures) {
             try {

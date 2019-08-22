@@ -12,7 +12,7 @@ public class MockJira implements Jira {
     private static final Random RANDOM = new Random();
     private static final int FAILURE_PROBABILITY_IN_PERCENTS = 1;
 
-    public int submit(Issue issue) {
+    public int submit(final Issue issue) {
         try {
             Thread.sleep(getRandomLatency());
         } catch (InterruptedException e) {
@@ -29,11 +29,11 @@ public class MockJira implements Jira {
         return didSucceed(FAILURE_PROBABILITY_IN_PERCENTS) ? 200 : 403;
     }
 
-    private boolean didSucceed(int failureProbabilityInPercents) {
+    private boolean didSucceed(final int failureProbabilityInPercents) {
         return getRandomNumberInRange(1, 100) > failureProbabilityInPercents;
     }
 
-    private int getRandomNumberInRange(int min, int max) {
+    private int getRandomNumberInRange(final int min, final int max) {
         if (min >= max) {
             throw new IllegalArgumentException("max must be greater than min.");
         }

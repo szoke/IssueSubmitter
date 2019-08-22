@@ -8,11 +8,11 @@ public class OneOffJiraSubmitterFactory {
 
     private final Jira jira;
 
-    public OneOffJiraSubmitterFactory(Jira jira) {
+    public OneOffJiraSubmitterFactory(final Jira jira) {
         this.jira = jira;
     }
 
-    public OneOffJiraSubmitter create(Issue issue) {
+    public OneOffJiraSubmitter create(final Issue issue) {
         return new OneOffJiraSubmitter(jira, issue);
     }
 }

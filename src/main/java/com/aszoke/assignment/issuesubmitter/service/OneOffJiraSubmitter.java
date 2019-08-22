@@ -44,7 +44,7 @@ public class OneOffJiraSubmitter implements Callable<SubmissionResult> {
         return result;
     }
 
-    private String toJson(Issue issue) {
+    private String toJson(final Issue issue) {
         try {
             return new ObjectMapper().writeValueAsString(issue);
         } catch (JsonProcessingException e) {

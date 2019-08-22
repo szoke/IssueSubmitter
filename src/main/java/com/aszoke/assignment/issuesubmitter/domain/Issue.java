@@ -19,7 +19,7 @@ public class Issue {
     private String description;
     private String summary;
 
-    public static Issue fromCsv(String csv) {
+    public static Issue fromCsv(final String csv) {
         // DEMO-1000,11905,Backlog,07/Jun/18 3:13 PM,07/Jun/18 3:13 PM,,jiraadmin,Descript,MikeDemo2
         String[] fields = csv.split(",");
 

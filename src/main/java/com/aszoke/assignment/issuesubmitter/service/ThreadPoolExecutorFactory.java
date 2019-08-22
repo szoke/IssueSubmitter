@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 public class ThreadPoolExecutorFactory implements ExecutorServiceFactory {
 
     @Override
-    public ExecutorService create(int poolSize) {
+    public ExecutorService create(final int poolSize) {
         return new ThreadPoolExecutor(poolSize, poolSize, 1L, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
     }
 }
