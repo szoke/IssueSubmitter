@@ -6,6 +6,7 @@ import java.util.Random;
 
 import static com.aszoke.assignment.issuesubmitter.util.Logger.logError;
 import static com.aszoke.assignment.issuesubmitter.util.Logger.logInfo;
+import static java.util.Objects.requireNonNull;
 
 public class MockJira implements Jira {
 
@@ -13,6 +14,8 @@ public class MockJira implements Jira {
     private static final int FAILURE_PROBABILITY_IN_PERCENTS = 1;
 
     public int submit(final Issue issue) {
+        requireNonNull(issue);
+
         try {
             Thread.sleep(getRandomLatency());
         } catch (InterruptedException e) {

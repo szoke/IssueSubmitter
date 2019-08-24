@@ -7,12 +7,15 @@ import java.util.List;
 import java.util.Scanner;
 
 import static com.aszoke.assignment.issuesubmitter.util.Logger.logError;
+import static java.util.Objects.requireNonNull;
 
 public class DefaultCsvReader implements CsvReader {
 
     private final String filename;
 
     public DefaultCsvReader(final String filename) {
+        requireNonNull(filename);
+
         this.filename = filename;
     }
 

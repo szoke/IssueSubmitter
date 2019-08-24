@@ -10,6 +10,7 @@ import java.util.concurrent.Callable;
 
 import static com.aszoke.assignment.issuesubmitter.util.Logger.logError;
 import static com.aszoke.assignment.issuesubmitter.util.Logger.logInfo;
+import static java.util.Objects.requireNonNull;
 
 public class OneOffJiraSubmitter implements Callable<SubmissionResult> {
 
@@ -18,6 +19,9 @@ public class OneOffJiraSubmitter implements Callable<SubmissionResult> {
     private final long createdAt;
 
     public OneOffJiraSubmitter(final Jira jira, final Issue issue) {
+        requireNonNull(jira);
+        requireNonNull(issue);
+
         this.jira = jira;
         this.issue = issue;
         this.createdAt = System.currentTimeMillis();

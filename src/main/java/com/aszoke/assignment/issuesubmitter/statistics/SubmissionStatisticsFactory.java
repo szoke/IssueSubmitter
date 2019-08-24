@@ -4,9 +4,12 @@ import com.aszoke.assignment.issuesubmitter.domain.SubmissionResult;
 
 import java.util.Collection;
 
+import static java.util.Objects.requireNonNull;
+
 public class SubmissionStatisticsFactory {
 
     public SubmissionStatistics create(final Collection<SubmissionResult> results) {
+        requireNonNull(results);
 
         // TODO aszoke Split up calculations eventually into separate classes
         //  if testing becomes tedious or more flexibility is needed
