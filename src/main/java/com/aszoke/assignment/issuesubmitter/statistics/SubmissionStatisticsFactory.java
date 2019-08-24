@@ -11,6 +11,10 @@ public class SubmissionStatisticsFactory {
     public SubmissionStatistics create(final Collection<SubmissionResult> results) {
         requireNonNull(results);
 
+        if (results.size() == 0) {
+            return new SubmissionStatistics();
+        }
+
         // TODO aszoke Split up calculations eventually into separate classes
         //  if testing becomes tedious or more flexibility is needed
 
