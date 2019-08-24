@@ -6,8 +6,7 @@ import com.aszoke.assignment.issuesubmitter.server.Jira;
 import org.junit.Test;
 
 import static junit.framework.TestCase.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class OneOffJiraSubmitterTest {
 
@@ -32,6 +31,7 @@ public class OneOffJiraSubmitterTest {
 
         SubmissionResult actual = underTest.call();
 
+        verify(jira).submit(issue);
         assertNotNull(actual);
         assertEquals(key, actual.getIssueKey());
         assertEquals(statusCode, actual.getStatusCode());
