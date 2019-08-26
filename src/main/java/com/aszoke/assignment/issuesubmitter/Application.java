@@ -1,8 +1,6 @@
 package com.aszoke.assignment.issuesubmitter;
 
-import com.aszoke.assignment.issuesubmitter.csv.CsvReader;
-import com.aszoke.assignment.issuesubmitter.csv.DefaultCsvReader;
-import com.aszoke.assignment.issuesubmitter.csv.RegexBasedFilteringCsvReaderDecorator;
+import com.aszoke.assignment.issuesubmitter.csv.*;
 import com.aszoke.assignment.issuesubmitter.domain.DefaultIssueFactory;
 import com.aszoke.assignment.issuesubmitter.domain.Issue;
 import com.aszoke.assignment.issuesubmitter.domain.IssueFactory;
@@ -13,6 +11,8 @@ import com.aszoke.assignment.issuesubmitter.service.*;
 import com.aszoke.assignment.issuesubmitter.statistics.SubmissionStatistics;
 import com.aszoke.assignment.issuesubmitter.statistics.SubmissionStatisticsFactory;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import static com.aszoke.assignment.issuesubmitter.util.Logger.logInfo;
@@ -28,7 +28,8 @@ public class Application {
         String filterRegex = args[1];
 
         // Poor man's DI
-        CsvReader csvReader = createCsvReader(filterRegex);
+        List<Filter> filters = createFilters(new RegexFilter(filterRegex));
+        CsvReader csvReader = createCsvReader(filters);
         IssueFactory issueFactory = createIssueFactory();
         JiraService jiraService = createJiraService(threadPoolSize);
         SubmissionStatisticsFactory submissionStatisticsFactory = createStatisticsFactory();
@@ -57,9 +58,13 @@ public class Application {
         System.exit(-1);
     }
 
-    private static CsvReader createCsvReader(String filterRegex) {
+    private static List<Filter> createFilters(Filter... filters) {
+        return Arrays.asList(filters);
+    }
+
+    private static CsvReader createCsvReader(Collection<Filter> filters) {
         CsvReader defaultCsvReader = new DefaultCsvReader(TEST_CSV_FILE);
-        return new RegexBasedFilteringCsvReaderDecorator(defaultCsvReader, filterRegex);
+        return new FilteringCsvReaderDecorator(defaultCsvReader, filters);
     }
 
     private static IssueFactory createIssueFactory() {
