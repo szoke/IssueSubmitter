@@ -1,6 +1,7 @@
 package com.aszoke.assignment.issuesubmitter.csv;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -30,6 +31,7 @@ public class RegexBasedFilteringCsvReaderDecoratorTest {
         MockitoAnnotations.initMocks(this);
     }
 
+    @Ignore("java.util.regex.Pattern is final therefore cannot be mocked.")
     @Test
     public void test() {
         String matched = "matched";

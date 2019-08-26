@@ -22,6 +22,8 @@ public class RegexBasedFilteringCsvReaderDecorator implements CsvReader {
     @Override
     public List<String> readLines() {
         return csvReader.readLines().stream()
+                // java.util.regex.Pattern is final and cannot be mocked
+                // Wrap in a Filter class to promote testability?
                 .filter(line -> pattern.matcher(line).matches())
                 .collect(Collectors.toList());
     }
