@@ -8,3 +8,37 @@ Paid special attention to
 * SOLID principles
 * Maintainability
 * Testability
+
+## Notes
+
+There are a few test-unfriendly constructs here:
+* File access
+* Timestamps related to task execution (created at, started at, finished at)
+* Execution of tasks on separate threads
+* Regex matching
+* Random sleep intervals and HTTP status codes
+
+Tried to abstract away / decouple these things to promote testability.
+
+However, didn't want to over-engineer and the app to look like enterprise code taken to the extreme in the bad sense.
+
+Applied design patterns where appropriate.
+
+Adhered to the single responsibility principle in order to
+* Keep the size of classes small
+* Keep the classes testable
+* Keep complexity low, maintainabilty high
+Defensive programming on public APIs.
+Promote dependency injection by depending on interfaces.
+
+# Improvement Options
+
+This is a demo application with some flaws that we would need to improve to make it production ready:
+* Reading and filtering lines from the CSV file is not robust
+* Logging is basic, in real life we would probably use a logger tool
+* CSV filename hardcoded
+* No defaults for command-line options
+* Manual DI in the Application class
+* No API / integration tests
+* No JavaDoc
+* No robust exception handling
