@@ -48,3 +48,4 @@ This is a demo application with some flaws that we would need to improve to make
 rigid and a more dynamic solution should be implemented. E.g. putting headers and corresponding values into a map and 
 pass that map to the JSON serializer. Another question is to what extent the content in the CSV should be validated 
 semantically? The current file contains some garbage lines that are not CSV.)
+* Look for TODOs in the code to find out what issues still remain
