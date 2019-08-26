@@ -11,8 +11,9 @@ import com.aszoke.assignment.issuesubmitter.service.*;
 import com.aszoke.assignment.issuesubmitter.statistics.SubmissionStatistics;
 import com.aszoke.assignment.issuesubmitter.statistics.SubmissionStatisticsFactory;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static com.aszoke.assignment.issuesubmitter.util.Logger.logInfo;
@@ -20,15 +21,16 @@ import static com.aszoke.assignment.issuesubmitter.util.Logger.logInfo;
 public class Application {
 
     private static final String TEST_CSV_FILE = "miketest.csv";
+    private static final Filter VALID_JIRA_ISSUE_REGEX_FILTER = new RegexFilter(".*,.*,.*,.*,.*,.*,.*,.*,.*");
+    private static final int DEFAULT_THREAD_POOL_SIZE = 8;
 
     public static void main(String[] args) {
-        assertArgs(args);
-
-        int threadPoolSize = Integer.parseInt(args[0]);
-        String filterRegex = args[1];
+        int threadPoolSize = args.length > 0 ? Integer.parseInt(args[0]) : DEFAULT_THREAD_POOL_SIZE;
+        String userFilterRegex = args.length > 1 ? args[1] : null;
 
         // Poor man's DI
-        List<Filter> filters = createFilters(new RegexFilter(filterRegex));
+        List<Filter> filters = createFilters(VALID_JIRA_ISSUE_REGEX_FILTER);
+        addUserRegexFilter(userFilterRegex, filters);
         CsvReader csvReader = createCsvReader(filters);
         IssueFactory issueFactory = createIssueFactory();
         JiraService jiraService = createJiraService(threadPoolSize);
@@ -38,28 +40,22 @@ public class Application {
         List<Issue> issues = issueFactory.create(lines);
         List<SubmissionResult> results = jiraService.submit(issues);
         SubmissionStatistics statistics = submissionStatisticsFactory.create(results);
-        printStatistics(statistics, threadPoolSize);
-    }
-
-    private static void assertArgs(String[] args) {
-        if (args.length < 2) {
-            printUsage();
-            shutdown();
-        }
-    }
-
-    private static void printUsage() {
-        System.out.println("Missing arguments!");
-        System.out.println("Usage: java -jar target/issuesubmitter.jar <thread-pool-size> <csv-filter-regex>");
-        System.out.println("Example: java -jar target/issuesubmitter.jar 4 DEMO-9.*");
-    }
-
-    private static void shutdown() {
-        System.exit(-1);
+        printStatistics(statistics, threadPoolSize, userFilterRegex);
     }
 
     private static List<Filter> createFilters(Filter... filters) {
-        return Arrays.asList(filters);
+        ArrayList<Filter> list = new ArrayList<>();
+        Collections.addAll(list, filters);
+        return list;
+    }
+
+    private static List<Filter> addUserRegexFilter(String regex, List<Filter> filters) {
+        if (regex == null) {
+            return filters;
+        }
+
+        filters.add(new RegexFilter(regex));
+        return filters;
     }
 
     private static CsvReader createCsvReader(Collection<Filter> filters) {
@@ -82,9 +78,10 @@ public class Application {
         return new SubmissionStatisticsFactory();
     }
 
-    private static void printStatistics(SubmissionStatistics stats, int threadPoolSize) {
+    private static void printStatistics(SubmissionStatistics stats, int threadPoolSize, String userFilterRegex) {
         logInfo("-------- FINISHED --------");
         logInfo("Number of threads used for submission: " + threadPoolSize);
+        logInfo("User regex used for filtering CSV content: " + userFilterRegex);
         logInfo("Number of issues submitted: " + stats.getIssueCount());
         logInfo("Number of successful submissions (HTTP 200): " + stats.getHttp200Count());
         logInfo("Number of failed submissions (HTTP 403): " + stats.getHttp403Count());
