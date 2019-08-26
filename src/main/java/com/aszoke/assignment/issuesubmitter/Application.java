@@ -17,7 +17,7 @@ import static com.aszoke.assignment.issuesubmitter.util.Logger.logInfo;
 
 public class Application {
 
-    private static final String TEST_CSV_FILE = "miketest.csv";
+    private static final String TEST_CSV_FILE = "/miketest.csv";
     private static final Filter VALID_JIRA_ISSUE_REGEX_FILTER = new RegexFilter(".*,.*,.*,.*,.*,.*,.*,.*,.*");
     private static final int DEFAULT_THREAD_POOL_SIZE = 8;
 

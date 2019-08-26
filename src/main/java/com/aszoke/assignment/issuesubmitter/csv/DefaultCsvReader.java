@@ -23,13 +23,13 @@ public class DefaultCsvReader implements CsvReader {
     public List<String> readLines() {
         List<String> lines = new ArrayList<>();
         // TODO aszoke File access is test-unfriendly, should probably pass a Reader or Stream
-        try (Scanner scanner = new Scanner(new File(filename));) {
+        try (Scanner scanner = new Scanner(getClass().getResourceAsStream(filename))) {
             while (scanner.hasNextLine()) {
                 lines.add(scanner.nextLine());
             }
-        } catch (FileNotFoundException e) {
-            logError("File not found: " + filename);
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            logError("Error while reading file: " + filename);
+            throw e;
         }
         return lines;
     }
