@@ -9,6 +9,16 @@ Paid special attention to
 * Maintainability
 * Testability
 
+# Building and Running
+
+Build: `mvn clean install`
+
+Run: `java -jar target/issuesubmitter-0.0.1-SNAPSHOT.jar`
+
+Run with parameters: `java -jar target/issuesubmitter-0.0.1-SNAPSHOT.jar <thread-pool-size> <csv-filter-regex>`
+
+Run with parameters example: `java -jar target/issuesubmitter-0.0.1-SNAPSHOT.jar 4 DEMO-9.*`
+
 ## Notes
 
 There are a few test-unfriendly constructs here:
