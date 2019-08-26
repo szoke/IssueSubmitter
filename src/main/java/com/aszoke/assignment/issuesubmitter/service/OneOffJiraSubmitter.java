@@ -2,25 +2,27 @@ package com.aszoke.assignment.issuesubmitter.service;
 
 import com.aszoke.assignment.issuesubmitter.domain.Issue;
 import com.aszoke.assignment.issuesubmitter.domain.SubmissionResult;
+import com.aszoke.assignment.issuesubmitter.domain.SubmissionResultFactory;
 import com.aszoke.assignment.issuesubmitter.server.Jira;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-import static com.aszoke.assignment.issuesubmitter.util.Logger.logError;
 import static com.aszoke.assignment.issuesubmitter.util.Logger.logInfo;
+import static com.aszoke.assignment.issuesubmitter.util.Logger.toJson;
 import static java.util.Objects.requireNonNull;
 
 public class OneOffJiraSubmitter implements JiraSubmitter {
 
     private final Jira jira;
+    private final SubmissionResultFactory submissionResultFactory;
     private final Issue issue;
     private final long createdAt;
 
-    public OneOffJiraSubmitter(final Jira jira, final Issue issue) {
+    public OneOffJiraSubmitter(final Jira jira, final SubmissionResultFactory submissionResultFactory, final Issue issue) {
         requireNonNull(jira);
+        requireNonNull(submissionResultFactory);
         requireNonNull(issue);
 
         this.jira = jira;
+        this.submissionResultFactory = submissionResultFactory;
         this.issue = issue;
         this.createdAt = System.currentTimeMillis();
     }
@@ -35,24 +37,7 @@ public class OneOffJiraSubmitter implements JiraSubmitter {
 
         long finishedAt = System.currentTimeMillis();
 
-        // TODO aszoke Extract into factory?
-        SubmissionResult result = new SubmissionResult();
-        result.setIssueKey(issue.getKey());
-        result.setStatusCode(statusCode);
-        result.setCreatedAtMillis(createdAt);
-        result.setStartedAtMillis(startedAt);
-        result.setFinishedAtMillis(finishedAt);
-
-        return result;
-    }
-
-    private String toJson(final Issue issue) {
-        try {
-            return new ObjectMapper().writeValueAsString(issue);
-        } catch (JsonProcessingException e) {
-            logError("Error while serializing issue to JSON.");
-            throw new RuntimeException(e);
-        }
+        return submissionResultFactory.create(issue.getKey(), statusCode, createdAt, startedAt, finishedAt);
     }
 }
 

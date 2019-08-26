@@ -1,10 +1,7 @@
 package com.aszoke.assignment.issuesubmitter;
 
 import com.aszoke.assignment.issuesubmitter.csv.*;
-import com.aszoke.assignment.issuesubmitter.domain.DefaultIssueFactory;
-import com.aszoke.assignment.issuesubmitter.domain.Issue;
-import com.aszoke.assignment.issuesubmitter.domain.IssueFactory;
-import com.aszoke.assignment.issuesubmitter.domain.SubmissionResult;
+import com.aszoke.assignment.issuesubmitter.domain.*;
 import com.aszoke.assignment.issuesubmitter.server.Jira;
 import com.aszoke.assignment.issuesubmitter.server.MockJira;
 import com.aszoke.assignment.issuesubmitter.service.*;
@@ -30,7 +27,7 @@ public class Application {
 
         // Poor man's DI
         List<Filter> filters = createFilters(VALID_JIRA_ISSUE_REGEX_FILTER);
-        addUserRegexFilter(userFilterRegex, filters);
+        filters = addUserRegexFilter(userFilterRegex, filters);
         CsvReader csvReader = createCsvReader(filters);
         IssueFactory issueFactory = createIssueFactory();
         JiraService jiraService = createJiraService(threadPoolSize);
@@ -70,7 +67,8 @@ public class Application {
     private static JiraService createJiraService(int threadPoolSize) {
         ExecutorServiceFactory executorServiceFactory = new ThreadPoolExecutorFactory();
         Jira jira = new MockJira();
-        JiraSubmitterFactory jiraSubmitterFactory = new OneOffJiraSubmitterFactory(jira);
+        SubmissionResultFactory submissionResultFactory = new DefaultSubmissionResultFactory();
+        JiraSubmitterFactory jiraSubmitterFactory = new OneOffJiraSubmitterFactory(jira, submissionResultFactory);
         return new DefaultJiraService(executorServiceFactory.create(threadPoolSize), jiraSubmitterFactory);
     }
 
