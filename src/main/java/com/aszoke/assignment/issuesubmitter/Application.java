@@ -40,13 +40,13 @@ public class Application {
         printStatistics(statistics, threadPoolSize, userFilterRegex);
     }
 
-    private static List<Filter> createFilters(Filter... filters) {
+    private static List<Filter> createFilters(final Filter... filters) {
         ArrayList<Filter> list = new ArrayList<>();
         Collections.addAll(list, filters);
         return list;
     }
 
-    private static List<Filter> addUserRegexFilter(String regex, List<Filter> filters) {
+    private static List<Filter> addUserRegexFilter(final String regex, final List<Filter> filters) {
         if (regex == null) {
             return filters;
         }
@@ -55,7 +55,7 @@ public class Application {
         return filters;
     }
 
-    private static CsvReader createCsvReader(Collection<Filter> filters) {
+    private static CsvReader createCsvReader(final Collection<Filter> filters) {
         CsvReader defaultCsvReader = new DefaultCsvReader(TEST_CSV_FILE);
         return new FilteringCsvReaderDecorator(defaultCsvReader, filters);
     }
@@ -64,7 +64,7 @@ public class Application {
         return new DefaultIssueFactory();
     }
 
-    private static JiraService createJiraService(int threadPoolSize) {
+    private static JiraService createJiraService(final int threadPoolSize) {
         ExecutorServiceFactory executorServiceFactory = new ThreadPoolExecutorFactory();
         Jira jira = new MockJira();
         SubmissionResultFactory submissionResultFactory = new DefaultSubmissionResultFactory();
@@ -76,7 +76,7 @@ public class Application {
         return new SubmissionStatisticsFactory();
     }
 
-    private static void printStatistics(SubmissionStatistics stats, int threadPoolSize, String userFilterRegex) {
+    private static void printStatistics(final SubmissionStatistics stats, final int threadPoolSize, final String userFilterRegex) {
         logInfo("-------- FINISHED --------");
         logInfo("Number of threads used for submission: " + threadPoolSize);
         logInfo("User regex used for filtering CSV content: " + userFilterRegex);

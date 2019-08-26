@@ -6,7 +6,6 @@ import com.aszoke.assignment.issuesubmitter.domain.SubmissionResultFactory;
 import com.aszoke.assignment.issuesubmitter.server.Jira;
 
 import static com.aszoke.assignment.issuesubmitter.util.Logger.logInfo;
-import static com.aszoke.assignment.issuesubmitter.util.Logger.toJson;
 import static java.util.Objects.requireNonNull;
 
 public class OneOffJiraSubmitter implements JiraSubmitter {
@@ -31,7 +30,7 @@ public class OneOffJiraSubmitter implements JiraSubmitter {
     public SubmissionResult call() {
         long startedAt = System.currentTimeMillis();
 
-        logInfo("Submitting " + toJson(issue) + " to Jira...");
+        logInfo("Submitting " + issue + " to Jira...");
         int statusCode = jira.submit(issue);
         logInfo("Submitted " + issue.getKey() + ". Result: HTTP " + statusCode + ".");
 
