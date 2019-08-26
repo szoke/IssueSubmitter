@@ -28,7 +28,9 @@ Adhered to the single responsibility principle in order to
 * Keep the size of classes small
 * Keep the classes testable
 * Keep complexity low, maintainabilty high
+
 Defensive programming on public APIs.
+
 Promote dependency injection by depending on interfaces.
 
 # Improvement Options
@@ -37,13 +39,12 @@ This is a demo application with some flaws that we would need to improve to make
 * Reading and filtering lines from the CSV file is not robust
 * Logging is basic, in real life we would probably use a logger tool
 * CSV filename hardcoded
-* No defaults for command-line options
 * Manual DI in the Application class
+* Application class not tested
 * No API / integration tests
 * No JavaDoc
 * No robust exception handling
 * Header are not read from the CSV (Should the app support any number of headers? If so, the Issue domain object is too
 rigid and a more dynamic solution should be implemented. E.g. putting headers and corresponding values into a map and 
 pass that map to the JSON serializer. Another question is to what extent the content in the CSV should be validated 
-semantically? The current file contains some garbage lines that are not CSV. These are currently filtered if the user enters 
-a regex that filters them out.)
+semantically? The current file contains some garbage lines that are not CSV.)
