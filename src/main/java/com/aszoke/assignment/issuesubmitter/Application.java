@@ -74,8 +74,8 @@ public class Application {
     private static JiraService createJiraService(int threadPoolSize) {
         ExecutorServiceFactory executorServiceFactory = new ThreadPoolExecutorFactory();
         Jira jira = new MockJira();
-        OneOffJiraSubmitterFactory oneOffJiraSubmitterFactory = new OneOffJiraSubmitterFactory(jira);
-        return new DefaultJiraService(executorServiceFactory.create(threadPoolSize), oneOffJiraSubmitterFactory);
+        JiraSubmitterFactory jiraSubmitterFactory = new OneOffJiraSubmitterFactory(jira);
+        return new DefaultJiraService(executorServiceFactory.create(threadPoolSize), jiraSubmitterFactory);
     }
 
     private static SubmissionStatisticsFactory createStatisticsFactory() {

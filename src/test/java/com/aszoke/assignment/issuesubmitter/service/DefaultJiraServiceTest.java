@@ -23,7 +23,7 @@ public class DefaultJiraServiceTest {
     @Mock
     private ExecutorService executorService;
     @Mock
-    private OneOffJiraSubmitterFactory oneOffJiraSubmitterFactory;
+    private JiraSubmitterFactory jiraSubmitterFactory;
 
     @InjectMocks
     private DefaultJiraService underTest;
@@ -35,7 +35,7 @@ public class DefaultJiraServiceTest {
 
     @Test(expected = NullPointerException.class)
     public void testConstructorShouldThrowWhenExecutorServiceIsNull() {
-        new DefaultJiraService(null, oneOffJiraSubmitterFactory);
+        new DefaultJiraService(null, jiraSubmitterFactory);
     }
 
     @Test(expected = NullPointerException.class)
@@ -54,7 +54,7 @@ public class DefaultJiraServiceTest {
 
         verify(executorService).shutdown();
         verifyNoMoreInteractions(executorService);
-        verifyZeroInteractions(oneOffJiraSubmitterFactory);
+        verifyZeroInteractions(jiraSubmitterFactory);
         assertNotNull(actual);
         assertEquals(0, actual.size());
     }
@@ -68,10 +68,10 @@ public class DefaultJiraServiceTest {
         // methods would be in the new classes
         Issue issue1 = new Issue();
         OneOffJiraSubmitter oneOffJiraSubmitter1 = mock(OneOffJiraSubmitter.class);
-        when(oneOffJiraSubmitterFactory.create(issue1)).thenReturn(oneOffJiraSubmitter1);
+        when(jiraSubmitterFactory.create(issue1)).thenReturn(oneOffJiraSubmitter1);
         Issue issue2 = new Issue();
         OneOffJiraSubmitter oneOffJiraSubmitter2 = mock(OneOffJiraSubmitter.class);
-        when(oneOffJiraSubmitterFactory.create(issue2)).thenReturn(oneOffJiraSubmitter2);
+        when(jiraSubmitterFactory.create(issue2)).thenReturn(oneOffJiraSubmitter2);
         Future<SubmissionResult> future1 = mock(Future.class);
         SubmissionResult submissionResult1 = new SubmissionResult();
         when(future1.get()).thenReturn(submissionResult1);
@@ -86,8 +86,8 @@ public class DefaultJiraServiceTest {
 
         List<SubmissionResult> actual = underTest.submit(issues);
 
-        verify(oneOffJiraSubmitterFactory).create(issue1);
-        verify(oneOffJiraSubmitterFactory).create(issue2);
+        verify(jiraSubmitterFactory).create(issue1);
+        verify(jiraSubmitterFactory).create(issue2);
         verify(executorService).submit(oneOffJiraSubmitter1);
         verify(executorService).submit(oneOffJiraSubmitter2);
         verify(executorService).shutdown();

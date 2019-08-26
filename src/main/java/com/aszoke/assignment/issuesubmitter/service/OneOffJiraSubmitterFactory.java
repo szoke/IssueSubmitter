@@ -5,8 +5,7 @@ import com.aszoke.assignment.issuesubmitter.server.Jira;
 
 import static java.util.Objects.requireNonNull;
 
-// TODO aszoke Extract interface
-public class OneOffJiraSubmitterFactory {
+public class OneOffJiraSubmitterFactory implements JiraSubmitterFactory {
 
     private final Jira jira;
 
@@ -14,6 +13,7 @@ public class OneOffJiraSubmitterFactory {
         this.jira = jira;
     }
 
+    @Override
     public OneOffJiraSubmitter create(final Issue issue) {
         requireNonNull(issue);
 

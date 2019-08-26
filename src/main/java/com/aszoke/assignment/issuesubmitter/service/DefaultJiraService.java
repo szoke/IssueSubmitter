@@ -16,15 +16,15 @@ import static java.util.Objects.requireNonNull;
 public class DefaultJiraService implements JiraService {
 
     private final ExecutorService executorService;
-    private final OneOffJiraSubmitterFactory oneOffJiraSubmitterFactory;
+    private final JiraSubmitterFactory jiraSubmitterFactory;
 
     public DefaultJiraService(final ExecutorService executorService,
-                              final OneOffJiraSubmitterFactory oneOffJiraSubmitterFactory) {
+                              final JiraSubmitterFactory jiraSubmitterFactory) {
         requireNonNull(executorService);
-        requireNonNull(oneOffJiraSubmitterFactory);
+        requireNonNull(jiraSubmitterFactory);
 
         this.executorService = executorService;
-        this.oneOffJiraSubmitterFactory = oneOffJiraSubmitterFactory;
+        this.jiraSubmitterFactory = jiraSubmitterFactory;
     }
 
     @Override
@@ -40,8 +40,8 @@ public class DefaultJiraService implements JiraService {
     private List<Future<SubmissionResult>> submitIssues(final Collection<Issue> issues) {
         List<Future<SubmissionResult>> futures = new ArrayList<>(issues.size());
         for (Issue issue : issues) {
-            OneOffJiraSubmitter oneOffJiraSubmitter = oneOffJiraSubmitterFactory.create(issue);
-            Future<SubmissionResult> future = executorService.submit(oneOffJiraSubmitter);
+            JiraSubmitter jiraSubmitter = jiraSubmitterFactory.create(issue);
+            Future<SubmissionResult> future = executorService.submit(jiraSubmitter);
             futures.add(future);
         }
         return futures;

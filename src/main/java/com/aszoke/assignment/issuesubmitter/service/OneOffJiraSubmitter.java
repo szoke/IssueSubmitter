@@ -6,13 +6,11 @@ import com.aszoke.assignment.issuesubmitter.server.Jira;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.concurrent.Callable;
-
 import static com.aszoke.assignment.issuesubmitter.util.Logger.logError;
 import static com.aszoke.assignment.issuesubmitter.util.Logger.logInfo;
 import static java.util.Objects.requireNonNull;
 
-public class OneOffJiraSubmitter implements Callable<SubmissionResult> {
+public class OneOffJiraSubmitter implements JiraSubmitter {
 
     private final Jira jira;
     private final Issue issue;
